@@ -2,7 +2,7 @@
 
 This is a toy project designed to create a semi-useful web-application that meets Lighthouse audits and is a progressive, off-line capable application.
 
-Code quality and test coverage is secondary consideration.
+Code quality and test coverage are secondary considerations!
 
 ### Goals
 
