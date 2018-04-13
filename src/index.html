@@ -31,10 +31,9 @@
   <meta name='twitter:image' content='https://markdownbeautifier.com/b.png'>
   <meta name='twitter:creator' content='@justin_wiley'>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.js" integrity="sha384-b7QX+ATmIamZ2n4N98bLvoh602rPBfhF0R6iDRk5kfvy8RQaYm1JMTOaTzLN+thB" crossorigin="anonymous"></script>
-  <link async rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-  <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha384-eYUmD1FFkORGrJdmrD37Z5LUEElTzF32+UI3jkzt7C1vpmUGo5KOVvb3Z5LeZHky" crossorigin="anonymous">
-  <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css" integrity="sha384-Psib5Tpn36G7uIqMQ84c1fopGb+jRO1TOMsE9pzKFZ4L8D6+2XcZ+lpElQNA1Sv/" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha384-eYUmD1FFkORGrJdmrD37Z5LUEElTzF32+UI3jkzt7C1vpmUGo5KOVvb3Z5LeZHky" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css" integrity="sha384-Psib5Tpn36G7uIqMQ84c1fopGb+jRO1TOMsE9pzKFZ4L8D6+2XcZ+lpElQNA1Sv/" crossorigin="anonymous">
 
   <style>
     @media only screen and (min-width: 480px) {
@@ -48,32 +47,31 @@
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="container">
-      <div class="header" style="padding-top: 2em; padding-bottom: 1em;">
-        <a href="https://github.com/justinwiley/markdownbeautifier"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-        <h3>Markdown Beautifier</h3>
-        <p>
-          Pretty-print and format your Markdown!
-        </p>
+  <div class="container">
+    <div class="header" style="padding-top: 2em; padding-bottom: 1em;">
+      <a href="https://github.com/justinwiley/markdownbeautifier"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+      <h3>Markdown Beautifier</h3>
+      <p>
+        Pretty-print and format your Markdown!
+      </p>
+    </div>
+
+
+    <!-- toolbar -->
+    <div class="row">
+      <div class="column column-100">
+        <a class="button" href="#" title="Beautify" id="beautify" onkeyup="beautify();" onclick="beautify();">Beautify</a>
       </div>
-
-
-      <!-- toolbar -->
-      <div class="row">
-        <div class="column column-50">
-          <a class="button" href="#" name="beautify" id="beautify" onkeyup="beautify();" onclick="beautify();">Beautify</a>
-        </div>
-        <div class="column column-50">
-          <a class="button" href="#" onclick="toggle('prettyView');" name="View Markdown" id="view-markdown">View Beautified Markdown</a>
-          <a class="button" href="#" onclick="toggle('htmlView');" name="View Markdown" id="view-html">View Beautified HTML</a>
-        </div>
+      <div class="column column-100" id="views" style="display:none;">
+        <a class="button" href="#" onclick="toggle('prettyView');" title="View Markdown" id="view-markdown">View Beautified Markdown</a>
+        <a class="button" href="#" onclick="toggle('htmlView');" title="View Markdown" id="view-html">View Beautified HTML</a>
       </div>
+    </div>
 
-      <!-- editor -->
-      <div class="row">
-        <div class="column column-50">
-          <textarea id="ugly">
+    <!-- editor -->
+    <div class="row">
+      <div class="column column-50">
+        <textarea id="ugly">
 ## Paste your code ugly Markdown here then click beautify ##
 
 * The results will show up to the right -->
@@ -81,44 +79,35 @@
 + Click the View Beautified HTML button to see a it rendered to HTML
 
 ****Copy and paste coming soon!**  Until then, select the rendered view you prefer and copy and paste manually.
-          </textarea>
-        </div>
-
-        <!-- prettied markdown -->
-        <div class="column column-50" id="prettyView" style="display:none;">
-          <!-- <a onclick="copy('pretty')" title="Copy to Clipboard"/>&#128203; Copy to Clipboard</a> -->
-          <pre><code id="pretty">
-          </code></pre>
-        </div>
-
-        <!-- html -->
-        <div class="column column-50" id="htmlView" style="display:none;">
-          <!-- <a onclick="copy('html')" title="Copy to Clipboard"/>&#128203; Copy to Clipboard</a> -->
-          <pre><code id="html">
-          </code></pre>
-        </div>
+        </textarea>
       </div>
 
-      <div class="row">
-        <div class="column column-100">
-          <pre style="border-left: .3rem solid red; display: none"><code id="errors">
-
-          </code></pre>
-        </div>
+      <!-- prettied markdown -->
+      <div class="column column-50" id="prettyView" style="display:none;">
+        <!-- <a onclick="copy('pretty')" title="Copy to Clipboard"/>&#128203; Copy to Clipboard</a> -->
+        <pre><code id="pretty">
+        </code></pre>
       </div>
 
-      <div class="row">
-        <div class="column column-50">
-          <a class="button" href="#" name="beautify" id="beautify" onkeyup="beautify();" onclick="beautify();">Beautify</a>
-        </div>
-        <div class="column column-50">
-          <a class="button" href="#" name="View Markdown" id="view-markdown">View Beautified Markdown</a>
-          <a class="button" href="#" name="View Markdown" id="view-html">View Beautified HTML</a>
-        </div>
+      <!-- html -->
+      <div class="column column-50" id="htmlView" style="display:none;">
+        <!-- <a onclick="copy('html')" title="Copy to Clipboard"/>&#128203; Copy to Clipboard</a> -->
+        <pre><code id="html">
+        </code></pre>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column column-100">
+        <pre style="border-left: .3rem solid red; display: none">
+          <code id="errors">
+          </code>
+        </pre>
       </div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.js" integrity="sha384-b7QX+ATmIamZ2n4N98bLvoh602rPBfhF0R6iDRk5kfvy8RQaYm1JMTOaTzLN+thB" crossorigin="anonymous"></script>
   <script type="text/javascript">
     const converter = new showdown.Converter();
     let currentView = 'prettyView';
@@ -133,6 +122,7 @@
     //
     function toggle(newView) {
       console.log('currentView', currentView, 'newView', newView);
+      document.getElementById('views').style.display = 'block';
       document.getElementById(currentView).style.display = 'none';
       document.getElementById(newView).style.display = 'block';
       currentView = newView;

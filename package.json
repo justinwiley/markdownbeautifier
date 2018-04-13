@@ -8,7 +8,7 @@
     "copy-assets": "cp assets/* dist/; cp assets/* src/",
     "start": "yarn copy-assets; webpack-dev-server --mode development",
     "build": "yarn copy-assets; webpack --mode production",
-    "deploy": "yarn copy-assets; yarn build && aws s3 sync dist/ s3://markdownbeautifier"
+    "deploy": "yarn copy-assets; yarn build && aws s3 sync dist/ s3://markdownbeautifier.com"
   },
   "repository": {
     "type": "git",
