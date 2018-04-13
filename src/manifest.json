@@ -1,0 +1,41 @@
+{
+  "name": "Beautify Markdown",
+  "short_name": "BMarkdown",
+  "icons": [
+      {
+        "src": "/b.png",
+        "type": "image/png",
+        "sizes": "48x48"
+      },
+
+      {
+        "src": "/b.png",
+        "type": "image/png",
+        "sizes": "72x72"
+      },
+      {
+        "src": "/b.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+      {
+        "src": "/b.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/b.png",
+        "type": "image/png",
+        "sizes": "191x192"
+      },
+      {
+        "src": "/b.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+      ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "white",
+  "theme_color": "white"

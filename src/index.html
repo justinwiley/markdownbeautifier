@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Markdown Beautifier</title>
+
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Beautify your Markdown, and convert it to HTML!  The fastest, easiest markdown pretty-print / beautifier out there."/>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="white"/>
+  <meta name='mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='application-name' content='Markdown Beautifier'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+  <meta name='apple-mobile-web-app-title' content='Markdown Beautifier'>
+  <link rel='icon' sizes='192x192' href='/b.png'>
+  <link rel='apple-touch-icon' href='/b.png'>
+  <meta name='msapplication-TileImage' content='/b.png'>
+  <meta name='msapplication-TileColor' content='#2196F3'>
+  <meta name='theme-color' content='#2196F3'>
+  <meta property='og:title' content='Markdown Beautifier'>
+  <meta property='og:type' content='website'>
+  <meta property='og:image' content='https://markdownbeautifier.com/b.png'>
+  <meta property='og:url' content='https://markdownbeautifier.com/'>
+  <meta property='og:description' content='Beautify your Markdown, and convert it to HTML!  The fastest, easiest markdown pretty-print / beautifier out there.'>
+  <meta name='twitter:card' content='summary'>
+  <meta name='twitter:url' content='https://markdownbeautifier.com/'>
+  <meta name='twitter:title' content='Markdown Beautifier'>
+  <meta name='twitter:description' content='Beautify your Markdown, and convert it to HTML!  The fastest, easiest markdown pretty-print / beautifier out there.'>
+  <meta name='twitter:image' content='https://markdownbeautifier.com/b.png'>
+  <meta name='twitter:creator' content='@justin_wiley'>
+
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.js" integrity="sha384-b7QX+ATmIamZ2n4N98bLvoh602rPBfhF0R6iDRk5kfvy8RQaYm1JMTOaTzLN+thB" crossorigin="anonymous"></script>
+  <link async rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha384-eYUmD1FFkORGrJdmrD37Z5LUEElTzF32+UI3jkzt7C1vpmUGo5KOVvb3Z5LeZHky" crossorigin="anonymous">
+  <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css" integrity="sha384-Psib5Tpn36G7uIqMQ84c1fopGb+jRO1TOMsE9pzKFZ4L8D6+2XcZ+lpElQNA1Sv/" crossorigin="anonymous">
+
+  <style>
+    @media only screen and (min-width: 480px) {
+      input[type=text], textarea {
+        height: 500px;
+      }
+    }
+    code {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header" style="padding-top: 2em; padding-bottom: 1em;">
+        <a href="https://github.com/justinwiley/markdown-beautifier"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <h3>Markdown Beautifier</h3>
+        <p>
+          Pretty-print and format your Markdown!
+        </p>
+      </div>
+
+
+      <!-- toolbar -->
+      <div class="row">
+        <div class="column column-50">
+          <a class="button" href="#" name="beautify" id="beautify" onkeyup="beautify();" onclick="beautify();">Beautify</a>
+        </div>
+        <div class="column column-50">
+          <a class="button" href="#" onclick="toggle('prettyView');" name="View Markdown" id="view-markdown">View Beautified Markdown</a>
+          <a class="button" href="#" onclick="toggle('htmlView');" name="View Markdown" id="view-html">View Beautified HTML</a>
+        </div>
+      </div>
+
+      <!-- editor -->
+      <div class="row">
+        <div class="column column-50">
+          <textarea id="ugly">
+## paste your code ugly markup ##
+  *here.  The results will appear
+* to the right -->
+ - click the View Beautified HTML to see a rendered version
+          </textarea>
+        </div>
+
+        <!-- prettied markdown -->
+        <div class="column column-50" id="prettyView">
+          <pre><code id="pretty">
+          </code></pre>
+        </div>
+
+        <!-- html -->
+        <div class="column column-50" id="htmlView" style="display:none;">
+          <pre><code id="html">
+          </code></pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column column-100">
+          <pre style="border-left: .3rem solid red; display: none"><code id="errors">
+
+          </code></pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column column-50">
+          <a class="button" href="#" name="beautify" id="beautify" onkeyup="beautify();" onclick="beautify();">Beautify</a>
+        </div>
+        <div class="column column-50">
+          <a class="button" href="#" name="View Markdown" id="view-markdown">View Beautified Markdown</a>
+          <a class="button" href="#" name="View Markdown" id="view-html">View Beautified HTML</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const converter = new showdown.Converter();
+    let currentView = 'prettyView';
+
+    function toggle(newView) {
+      console.log('currentView', currentView, 'newView', newView);
+      document.getElementById(currentView).style.display = 'none';
+      document.getElementById(newView).style.display = 'block';
+      currentView = newView;
+    }
+
+    function toHTML(text) {
+      return converter.makeHtml(text);
+    }
+
+    function beautify() {
+      const ugly = document.getElementById("ugly");
+      const pretty = document.getElementById("pretty");
+      const error = document.getElementById("error");
+      const html = document.getElementById("html");
+      if (ugly.value != '') {
+        App.beautify(ugly.value).then((results) => {
+          if (results.error) {
+            error.innerHTML = results.error;
+          }
+          else {
+            pretty.innerHTML = results.markdown;
+            html.innerHTML = toHTML(results.markdown);
+          }
+        })
+      }
+    }
+  </script>
+</body>
+</html>
